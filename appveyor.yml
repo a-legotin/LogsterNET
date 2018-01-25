@@ -14,6 +14,10 @@ skip_commits:
 
 skip_tags: true
 
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - ps: npm install
+
 build:
   publish_nuget: false             # package projects with .nuspec files and push to artifacts
   publish_nuget_symbols: false     # generate and publish NuGet symbol packages
@@ -25,7 +29,6 @@ build_script:
   - ps: dotnet restore
   - ps: dotnet build -c release
   - ps: npm --version
-  - ps: npm install
   - ps: npm build
 
 
