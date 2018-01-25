@@ -28,9 +28,8 @@ build_script:
   - ps: dotnet restore
   - ps: dotnet build -c release
   - ps: npm --version
+  - ps: npm i -f
   - ps: npm build
-  - ps: npm install
-
 
 dotnet_csproj:
   patch: true
