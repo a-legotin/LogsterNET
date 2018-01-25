@@ -16,7 +16,6 @@ skip_tags: true
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - ps: npm install
 
 build:
   publish_nuget: false             # package projects with .nuspec files and push to artifacts
@@ -30,6 +29,7 @@ build_script:
   - ps: dotnet build -c release
   - ps: npm --version
   - ps: npm build
+  - ps: npm install
 
 
 dotnet_csproj:
