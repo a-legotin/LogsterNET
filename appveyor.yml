@@ -1,0 +1,38 @@
+version: 1.0.{build}
+os: Previous Visual Studio 2017
+platform: Any CPU
+configuration: Release
+
+environment:
+  nodejs_version: "6"
+
+branches:
+  only:
+    - master
+skip_commits:
+  message: /skip ci/      # Regex for matching commit message
+
+skip_tags: true
+
+build:
+  publish_nuget: false             # package projects with .nuspec files and push to artifacts
+  publish_nuget_symbols: false     # generate and publish NuGet symbol packages
+  include_nuget_references: false  # add -IncludeReferencedProjects option while packaging NuGet artifacts
+  
+build_script:
+  - ps: cd LogsterNET 
+  - ps: dotnet --info
+  - ps: dotnet restore
+  - ps: dotnet build -c release
+  - ps: npm --version
+  - ps: npm install
+  - ps: npm build
+
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+
+test: off
